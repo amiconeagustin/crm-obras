@@ -1,235 +1,145 @@
-📘 CRM OBRAS — Documentación Técnica Base (README)
-🏗️ Descripción del Proyecto
+# 🧱 CRM OBRA — Sistema de Gestión de Obras, Presupuestos e Insumos  
+Documentación Técnica Base
 
-CRM OBRAS es un sistema interno de gestión de obras, presupuestos, usuarios, insumos y análisis de costos.
-Se está desarrollando con:
+CRM OBRA es un sistema interno para la gestión integral de obras, presupuestos, usuarios, insumos y análisis de costos.  
+El desarrollo se realiza siguiendo una arquitectura moderna basada en API REST.
 
-Laravel 11 (backend/API REST)
+---
 
-MySQL 8 (base de datos)
+## 🛠️ Tecnologías del Proyecto
 
-Vue (Vite) (frontend, en etapa posterior)
+| Capa | Tecnología | Estado |
+|------|------------|--------|
+| Backend | **Laravel 11** | ✔️ Activo |
+| Frontend | **Vue 3 (Vite)** | ⏳ Próxima etapa |
+| Base de datos | **MySQL 8** | ✔️ Activo |
+| Entorno local | **Laragon** | ✔️ Activo |
+| Control de versiones | **Git + GitHub** | ✔️ Activo |
+| Editor principal | **Visual Studio Code** | ✔️ Activo |
 
-Laragon (entorno local)
+---
 
-GitHub (repositorio remoto)
+## 📁 Estructura del Proyecto (resumen)
 
-VSCode (editor principal)
-
-📁 Estructura actual del proyecto
 crm-obras/
-│
-├── app/
-├── bootstrap/
-├── config/
-├── database/
-│   ├── migrations/
-│   ├── seeders/
-│   └── factories/
-├── public/
-├── resources/
-├── routes/
-├── storage/
-├── tests/
-└── vendor/
+│── app/
+│── bootstrap/
+│── config/
+│── database/
+│ ├── migrations/
+│ ├── seeders/
+│ └── factories/
+│── public/
+│── resources/
+│── routes/
+│── storage/
+│── tests/
+│── vendor/
+└── README.md
 
-🗂️ MODELOS, TABLAS Y RELACIONES
 
-Este esquema sigue el diagrama original creado en Miro.
-Vamos agregando tablas conforme se avanza en el desarrollo.
+---
 
-👤 1. Usuarios
-Tabla: usuarios
+# 📐 Modelo de Datos — Diagrama General
+
+El modelo sigue el esquema diseñado en **Miro**.  
+El proyecto utiliza migraciones versionadas y seeders para garantizar datos base consistentes.
+
+---
+
+# 👥 1. Módulo de Usuarios
+
+### 🧩 Tabla: **usuarios**
+Campos principales:
+
+| Campo | Tipo | Comentario |
+|-------|------|------------|
+| `usuarioId` | BIGINT PK | Identificador |
+| `usuarioApodo` | VARCHAR | Username interno |
+| `usuarioNombre` | VARCHAR | Nombre |
+| `usuarioApellido` | VARCHAR | Apellido |
+| `usuarioCorreo` | VARCHAR | Email único |
+| `usuarioClave` | VARCHAR | Hash de contraseña |
+| `usuarioTel` | VARCHAR | Teléfono |
+| `usuarioTipoId` | FK | (Interno / Cliente / Proveedor) |
+| `usuarioEstadoId` | FK | (Activo / Eliminado) |
+| `usuarioFechaAlta` | DATE | Fecha de alta |
+| `usuarioFechaNacimiento` | DATE | Fecha de nacimiento |
+| `timestamps` | Laravel | creado / actualizado |
+
+Relaciones:
+
+- Un **usuarioTipo** tiene muchos **usuarios**  
+- Un **usuarioEstado** tiene muchos **usuarios**
+
+---
+
+### 🧩 Tabla: **usuarios_tipo**
+Valores iniciales (seed):
+
+| ID | Tipo |
+|----|-------|
+| 1 | Interno |
+| 2 | Cliente |
+| 3 | Proveedor |
+
+---
+
+### 🧩 Tabla: **usuario_estado**
+Valores iniciales (seed):
+
+| ID | Estado |
+|----|---------|
+| 1 | Activo |
+| 2 | Eliminado |
+
+---
+
+# 🎭 2. Roles (ACL inicial)
+
+### 🧩 Tabla: **rol**
 
 Campos:
 
-usuarioId (PK)
-
-usuarioApodo
-
-usuarioNombre
-
-usuarioApellido
-
-usuarioCorreo
-
-usuarioClave
-
-usuarioCel
-
-usuarioRolId (FK → rol.rolId)
-
-usuarioTipoId (FK → usuarios_tipo.tipoId)
-
-usuarioEstadoId (FK → usuario_estado.estadoId)
-
-usuarioFechaAlta
-
-usuarioFechaNacimiento
-
-timestamps
-
-Tabla: usuarios_tipo
-
-Tipos:
-
-Interno
-
-Cliente
-
-Proveedor
-
-Migración creada: ✔
-Seeder creado: ✔
-
-Tabla: usuario_estado
-
-Estados:
-
-Activo
-
-Eliminado
-
-Migración creada: ✔
-Seeder creado: ✔
-
-Tabla: rol
-
-Roles administrativos:
-
-1 = Activo
-
-2 = Eliminado
-
-Migración creada: ✔
-Seeder creado: ✔
-
-🔧 MIGRACIONES YA CREADAS
-
-En /database/migrations se encuentran:
-
-create_usuarios_tipo_table
-
-create_usuario_estado_table
-
-create_rol_table
-
-Todas incluyen:
-
-PK autoincremental
-
-Campos respetando nombres EXACTOS del Miro
-
-Estructura limpia en UTF8MB4
-
-Ejemplo general de formato:
-
-Schema::create('usuarios_tipo', function (Blueprint $table) {
-    $table->id('tipoId');
-    $table->string('tipoNombre');
-    $table->timestamps();
-});
-
-🌱 SEEDERS YA CREADOS
-
-En /database/seeders:
-
-UsuariosTipoSeeder
-
-UsuarioEstadoSeeder
-
-RolSeeder
-
-Ejecución:
-
-php artisan db:seed
-
-
-Todo confirmado con éxito en MySQL (HeidiSQL).
-
-🛠️ ENTORNO DE DESARROLLO
-Local
-
-Laragon 8.x
-
-PHP 8.3.26
-
-MySQL 8.4
-
-Node.js 20.x/22.x (vía Chocolatey)
-
-Git 2.52
-
-Composer 2.8.4
-
-VS Code
-
-Ramas en Git
-
-main (rama principal)
-
-Subida remota:
-
-git remote add origin https://github.com/amiconeagustin/crm-obras.git
-git push -u origin main
-
-🔌 CONFIGURACIONES
-Archivo .env
-
-Conexión MySQL:
-
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=crm_obras
-DB_USERNAME=root
-DB_PASSWORD=
-
-🚀 PRÓXIMOS PASOS (ROADMAP)
-
-✔ Usuarios_tipo
-✔ Usuario_estado
-✔ Rol
-⬜ Modelo Usuario
-⬜ Migration Usuarios
-⬜ Seeders base para usuarios internos
-⬜ Tabla PAISES
-⬜ Tabla PROVINCIAS
-⬜ Tabla LOCALIDADES
-⬜ Tabla PARTIDOS
-⬜ Tabla PRESUPUESTO
-⬜ Tabla PRESUPUESTO_ITEM
-⬜ Tabla INSUMOS
-⬜ Tabla INSUMOS_ITEM
-⬜ API REST modular
-⬜ Autenticación mediante Laravel Breeze / Sanctum
-⬜ Pantallas iniciales en Vue
-⬜ CRUD completo de presupuestos
-⬜ CRUD de insumos y análisis de costos
-
-📎 NOTAS IMPORTANTES
-
-Todos los nombres de las tablas y campos siguen el diagrama de Miro EXACTAMENTE, sin renombrar nada del modelo.
-
-Toda relación pertenece al modelo de costos tradicional de construcción.
-
-El proyecto está organizado para escalar fácilmente a:
-
-App móvil
-
-API externa
-
-Panel administrativo ampliado
-
-El repositorio está limpio, sin archivos generados automáticamente en GitHub.
-
-🟩 Estado actual del proyecto
-Área	Estado
-Entorno local	✔ Completado
-Laravel base	✔ Completado
-Git + GitHub	✔ Conectado y funcionando
-Migraciones iniciales	✔ usuarios_tipo, usuario_estado, rol
-Seeders	✔ insert inicial de los 3 catálogos
-Base de datos	✔ sincronizada
-Backend	🟡 En progreso
-Frontend	⬜ Aún no iniciado
+| Campo | Tipo |
+|-------|------|
+| `rolId` | PK |
+| `rolNombre` | VARCHAR |
+| `rolEstado` | BOOLEAN (1 activo / 0 inactivo) |
+
+---
+
+# 🏗️ 3. Estado actual del desarrollo
+
+### ✔️ Finalizado
+- Configuración del entorno local (Laragon, PHP, MySQL)
+- Repositorio GitHub conectado
+- Proyecto Laravel 11 inicializado
+- Migraciones creadas:
+  - usuarios_tipo
+  - usuario_estado
+  - rol
+  - (users de Laravel no se usa)
+- Seeders creados para tablas base
+- Conexión MySQL funcionando
+
+### ⏳ Próximos pasos
+1. Crear migración y modelo de **usuarios**
+2. Implementar seeders de prueba
+3. Crear controladores base
+4. Construir endpoints del módulo Usuarios (API REST)
+5. Autenticación vía Laravel Sanctum
+6. Comenzar módulo de Presupuestos
+
+---
+
+# 📌 Notas técnicas importantes
+- El proyecto utiliza **PKs personalizadas** (ej: usuarioId), no `id` por defecto.
+- Todas las FK utilizan **nombres explícitos** (usuarioTipoId, presuItemId, etc.)
+- El proyecto seguirá el diagrama en Miro como fuente principal del modelo de datos.
+- Todo cambio estructural debe reflejarse en migraciones y no editarse manualmente en MySQL.
+
+---
+
+# 🧾 Licencia
+Proyecto privado interno — © 2025 Agustín Amicone  
