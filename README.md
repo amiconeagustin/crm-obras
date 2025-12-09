@@ -16,28 +16,32 @@ Desarrollado con:
 
 ## 📁 Estructura actual del proyecto
 
+```txt
 crm-obras/
-├── app/
-│ ├── Http/
-│ │ ├── Controllers/
-│ │ │ ├── Api/
-│ │ │ │ ├── UsuarioController.php
-│ │ │ │ ├── InsumoController.php
-│ │ │ ├── Controller.php
-│ ├── Models/
-│ │ ├── Usuario.php
-│ │ ├── UsuarioTipo.php
-│ │ ├── UsuarioEstado.php
-│ │ ├── Rol.php
-│ │ ├── Insumo.php
-│ │ ├── InsumoTipo.php
-│ │ ├── UnidadAplicacion.php
-├── routes/
-│ ├── api.php
+│── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Api/
+│   │   │   │   ├── UsuarioController.php
+│   │   │   │   └── InsumoController.php
+│   │   │   └── Controller.php
+│   │   └── Models/
+│   │       ├── Usuario.php
+│   │       ├── UsuarioTipo.php
+│   │       ├── UsuarioEstado.php
+│   │       ├── Rol.php
+│   │       ├── Insumo.php
+│   │       ├── InsumoTipo.php
+│   │       └── UnidadAplicacion.php
+│
 ├── database/
-│ ├── migrations/
-│ ├── seeders/
-
+│   ├── migrations/
+│   └── seeders/
+│
+├── routes/
+│   ├── api.php
+│   └── web.php
+```
 
 ---
 
