@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         UsuarioTipoSeeder::class,
         UsuarioEstadoSeeder::class,
         RolSeeder::class,
+        UsuarioSeeder::class,
     ]);
 }
 }

@@ -1,145 +1,149 @@
-# 🧱 CRM OBRA — Sistema de Gestión de Obras, Presupuestos e Insumos  
-Documentación Técnica Base
+# 🏗️ CRM OBRAS — Documentación Técnica Base
 
-CRM OBRA es un sistema interno para la gestión integral de obras, presupuestos, usuarios, insumos y análisis de costos.  
-El desarrollo se realiza siguiendo una arquitectura moderna basada en API REST.
+Sistema interno para la gestión de obras, presupuestos, usuarios, insumos, costos y análisis técnico-económico.
 
----
+Desarrollado con:
 
-## 🛠️ Tecnologías del Proyecto
-
-| Capa | Tecnología | Estado |
-|------|------------|--------|
-| Backend | **Laravel 11** | ✔️ Activo |
-| Frontend | **Vue 3 (Vite)** | ⏳ Próxima etapa |
-| Base de datos | **MySQL 8** | ✔️ Activo |
-| Entorno local | **Laragon** | ✔️ Activo |
-| Control de versiones | **Git + GitHub** | ✔️ Activo |
-| Editor principal | **Visual Studio Code** | ✔️ Activo |
+- **Laravel 11** (Backend / API REST)
+- **MySQL 8** (Base de datos)
+- **Vue (Vite)** (Frontend – etapa posterior)
+- **Laragon** (Entorno local)
+- **Postman** (Testing APIs)
+- **GitHub** (Repositorio remoto)
+- **VSCode** (Editor principal)
 
 ---
 
-## 📁 Estructura del Proyecto (resumen)
+## 📁 Estructura actual del proyecto
 
 crm-obras/
-│── app/
-│── bootstrap/
-│── config/
-│── database/
+├── app/
+│ ├── Http/
+│ │ ├── Controllers/
+│ │ │ ├── Api/
+│ │ │ │ ├── UsuarioController.php
+│ │ │ │ ├── InsumoController.php
+│ │ │ ├── Controller.php
+│ ├── Models/
+│ │ ├── Usuario.php
+│ │ ├── UsuarioTipo.php
+│ │ ├── UsuarioEstado.php
+│ │ ├── Rol.php
+│ │ ├── Insumo.php
+│ │ ├── InsumoTipo.php
+│ │ ├── UnidadAplicacion.php
+├── routes/
+│ ├── api.php
+├── database/
 │ ├── migrations/
 │ ├── seeders/
-│ └── factories/
-│── public/
-│── resources/
-│── routes/
-│── storage/
-│── tests/
-│── vendor/
-└── README.md
 
 
 ---
 
-# 📐 Modelo de Datos — Diagrama General
-
-El modelo sigue el esquema diseñado en **Miro**.  
-El proyecto utiliza migraciones versionadas y seeders para garantizar datos base consistentes.
+# 📌 Módulos implementados al día de hoy
 
 ---
 
-# 👥 1. Módulo de Usuarios
+## 👤 1. **Usuarios (CRUD + Login + Protecciones)**
 
-### 🧩 Tabla: **usuarios**
-Campos principales:
+### Tablas relacionadas:
+- `usuarios`
+- `usuarios_tipo`
+- `usuario_estado`
+- `rol`
 
-| Campo | Tipo | Comentario |
-|-------|------|------------|
-| `usuarioId` | BIGINT PK | Identificador |
-| `usuarioApodo` | VARCHAR | Username interno |
-| `usuarioNombre` | VARCHAR | Nombre |
-| `usuarioApellido` | VARCHAR | Apellido |
-| `usuarioCorreo` | VARCHAR | Email único |
-| `usuarioClave` | VARCHAR | Hash de contraseña |
-| `usuarioTel` | VARCHAR | Teléfono |
-| `usuarioTipoId` | FK | (Interno / Cliente / Proveedor) |
-| `usuarioEstadoId` | FK | (Activo / Eliminado) |
-| `usuarioFechaAlta` | DATE | Fecha de alta |
-| `usuarioFechaNacimiento` | DATE | Fecha de nacimiento |
-| `timestamps` | Laravel | creado / actualizado |
+### Endpoints:
 
-Relaciones:
+GET /api/usuarios
+GET /api/usuario/{id}
+POST /api/usuarios
+PUT /api/usuario/{id}
+DELETE /api/usuario/{id}
+POST /api/login
 
-- Un **usuarioTipo** tiene muchos **usuarios**  
-- Un **usuarioEstado** tiene muchos **usuarios**
 
----
-
-### 🧩 Tabla: **usuarios_tipo**
-Valores iniciales (seed):
-
-| ID | Tipo |
-|----|-------|
-| 1 | Interno |
-| 2 | Cliente |
-| 3 | Proveedor |
+### Funcionalidades completadas:
+- CRUD completo
+- Validaciones completas
+- Login con **Bearer Token**
+- Rutas protegidas
+- Relaciones cargadas automáticamente (tipo, estado, rol)
 
 ---
 
-### 🧩 Tabla: **usuario_estado**
-Valores iniciales (seed):
+## 🧱 2. **Insumos (CRUD completo)**
 
-| ID | Estado |
-|----|---------|
-| 1 | Activo |
-| 2 | Eliminado |
+### Tabla:
+- `insumos`
+- `insumos_tipo`
+- `unidades_aplicacion`
 
----
+### Endpoints:
 
-# 🎭 2. Roles (ACL inicial)
+GET /api/insumos
+GET /api/insumo/{id}
+POST /api/insumos
+PUT /api/insumo/{id}
+DELETE /api/insumo/{id}
 
-### 🧩 Tabla: **rol**
 
-Campos:
-
-| Campo | Tipo |
-|-------|------|
-| `rolId` | PK |
-| `rolNombre` | VARCHAR |
-| `rolEstado` | BOOLEAN (1 activo / 0 inactivo) |
-
----
-
-# 🏗️ 3. Estado actual del desarrollo
-
-### ✔️ Finalizado
-- Configuración del entorno local (Laragon, PHP, MySQL)
-- Repositorio GitHub conectado
-- Proyecto Laravel 11 inicializado
-- Migraciones creadas:
-  - usuarios_tipo
-  - usuario_estado
-  - rol
-  - (users de Laravel no se usa)
-- Seeders creados para tablas base
-- Conexión MySQL funcionando
-
-### ⏳ Próximos pasos
-1. Crear migración y modelo de **usuarios**
-2. Implementar seeders de prueba
-3. Crear controladores base
-4. Construir endpoints del módulo Usuarios (API REST)
-5. Autenticación vía Laravel Sanctum
-6. Comenzar módulo de Presupuestos
+### Funcionalidades implementadas:
+- Validaciones correctas
+- Relación con unidad de aplicación OK
+- Tipos de insumo OK
+- CRUD probado en Postman con éxito
 
 ---
 
-# 📌 Notas técnicas importantes
-- El proyecto utiliza **PKs personalizadas** (ej: usuarioId), no `id` por defecto.
-- Todas las FK utilizan **nombres explícitos** (usuarioTipoId, presuItemId, etc.)
-- El proyecto seguirá el diagrama en Miro como fuente principal del modelo de datos.
-- Todo cambio estructural debe reflejarse en migraciones y no editarse manualmente en MySQL.
+# 🧪 Testing API
+
+Se utiliza **Postman** con:
+
+- Login → obtener Bearer Token  
+- Setear en cada request:
+
+Authorization → Bearer Token
+
 
 ---
 
-# 🧾 Licencia
-Proyecto privado interno — © 2025 Agustín Amicone  
+# 🔒 Seguridad
+
+- Autenticación por Token
+- Middleware `auth:sanctum` en endpoints protegidos
+- Formato de respuesta estándar JSON
+
+---
+
+# 🚀 Estado actual del proyecto
+
+Módulos completados al día de hoy:
+
+| Módulo | Estado |
+|-------|--------|
+| Usuarios CRUD | ✅ Completado |
+| Login | ✅ Completado |
+| Insumos CRUD | ✅ Completado |
+| Relaciones base | ✅ Completado |
+| Rutas API | ✅ Completado |
+| Validaciones | ✅ Completado |
+
+---
+
+# 📆 Próximos pasos
+
+1. CRUD de **Presupuestos**
+2. CRUD de **Items por Presupuesto**
+3. Motor de costos → cálculo automático
+4. API del Dashboard
+5. Frontend con Vue
+
+---
+
+# 👨‍💻 Autor
+
+**Agustín Amicone**  
+Desarrollo + Arquitectura del sistema
+
+---

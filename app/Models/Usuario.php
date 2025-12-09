@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Usuario extends Model
+class Usuario extends Authenticatable
 {
+    use HasApiTokens; // Trait de Sanctum para manejar tokens
     protected $table = 'usuarios';
     protected $primaryKey = 'usuarioId';
     public $timestamps = true;
@@ -25,6 +28,12 @@ class Usuario extends Model
         'usuarioFechaNacimiento',
     ];
 
+    // Para que la contraseña no salga nunca en JSON
+    protected $hidden = [
+        'usuarioClave',
+        'remember_token',
+    ];
+
     // Relaciones básicas
     public function tipo()
     {
@@ -40,4 +49,5 @@ class Usuario extends Model
     {
         return $this->belongsTo(Rol::class, 'usuarioRolId', 'rolId');
     }
+
 }
