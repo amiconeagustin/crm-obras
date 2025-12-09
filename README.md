@@ -1,59 +1,235 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+📘 CRM OBRAS — Documentación Técnica Base (README)
+🏗️ Descripción del Proyecto
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+CRM OBRAS es un sistema interno de gestión de obras, presupuestos, usuarios, insumos y análisis de costos.
+Se está desarrollando con:
 
-## About Laravel
+Laravel 11 (backend/API REST)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+MySQL 8 (base de datos)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Vue (Vite) (frontend, en etapa posterior)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Laragon (entorno local)
 
-## Learning Laravel
+GitHub (repositorio remoto)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+VSCode (editor principal)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+📁 Estructura actual del proyecto
+crm-obras/
+│
+├── app/
+├── bootstrap/
+├── config/
+├── database/
+│   ├── migrations/
+│   ├── seeders/
+│   └── factories/
+├── public/
+├── resources/
+├── routes/
+├── storage/
+├── tests/
+└── vendor/
 
-## Laravel Sponsors
+🗂️ MODELOS, TABLAS Y RELACIONES
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Este esquema sigue el diagrama original creado en Miro.
+Vamos agregando tablas conforme se avanza en el desarrollo.
 
-### Premium Partners
+👤 1. Usuarios
+Tabla: usuarios
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Campos:
 
-## Contributing
+usuarioId (PK)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+usuarioApodo
 
-## Code of Conduct
+usuarioNombre
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+usuarioApellido
 
-## Security Vulnerabilities
+usuarioCorreo
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+usuarioClave
 
-## License
+usuarioCel
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+usuarioRolId (FK → rol.rolId)
+
+usuarioTipoId (FK → usuarios_tipo.tipoId)
+
+usuarioEstadoId (FK → usuario_estado.estadoId)
+
+usuarioFechaAlta
+
+usuarioFechaNacimiento
+
+timestamps
+
+Tabla: usuarios_tipo
+
+Tipos:
+
+Interno
+
+Cliente
+
+Proveedor
+
+Migración creada: ✔
+Seeder creado: ✔
+
+Tabla: usuario_estado
+
+Estados:
+
+Activo
+
+Eliminado
+
+Migración creada: ✔
+Seeder creado: ✔
+
+Tabla: rol
+
+Roles administrativos:
+
+1 = Activo
+
+2 = Eliminado
+
+Migración creada: ✔
+Seeder creado: ✔
+
+🔧 MIGRACIONES YA CREADAS
+
+En /database/migrations se encuentran:
+
+create_usuarios_tipo_table
+
+create_usuario_estado_table
+
+create_rol_table
+
+Todas incluyen:
+
+PK autoincremental
+
+Campos respetando nombres EXACTOS del Miro
+
+Estructura limpia en UTF8MB4
+
+Ejemplo general de formato:
+
+Schema::create('usuarios_tipo', function (Blueprint $table) {
+    $table->id('tipoId');
+    $table->string('tipoNombre');
+    $table->timestamps();
+});
+
+🌱 SEEDERS YA CREADOS
+
+En /database/seeders:
+
+UsuariosTipoSeeder
+
+UsuarioEstadoSeeder
+
+RolSeeder
+
+Ejecución:
+
+php artisan db:seed
+
+
+Todo confirmado con éxito en MySQL (HeidiSQL).
+
+🛠️ ENTORNO DE DESARROLLO
+Local
+
+Laragon 8.x
+
+PHP 8.3.26
+
+MySQL 8.4
+
+Node.js 20.x/22.x (vía Chocolatey)
+
+Git 2.52
+
+Composer 2.8.4
+
+VS Code
+
+Ramas en Git
+
+main (rama principal)
+
+Subida remota:
+
+git remote add origin https://github.com/amiconeagustin/crm-obras.git
+git push -u origin main
+
+🔌 CONFIGURACIONES
+Archivo .env
+
+Conexión MySQL:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=crm_obras
+DB_USERNAME=root
+DB_PASSWORD=
+
+🚀 PRÓXIMOS PASOS (ROADMAP)
+
+✔ Usuarios_tipo
+✔ Usuario_estado
+✔ Rol
+⬜ Modelo Usuario
+⬜ Migration Usuarios
+⬜ Seeders base para usuarios internos
+⬜ Tabla PAISES
+⬜ Tabla PROVINCIAS
+⬜ Tabla LOCALIDADES
+⬜ Tabla PARTIDOS
+⬜ Tabla PRESUPUESTO
+⬜ Tabla PRESUPUESTO_ITEM
+⬜ Tabla INSUMOS
+⬜ Tabla INSUMOS_ITEM
+⬜ API REST modular
+⬜ Autenticación mediante Laravel Breeze / Sanctum
+⬜ Pantallas iniciales en Vue
+⬜ CRUD completo de presupuestos
+⬜ CRUD de insumos y análisis de costos
+
+📎 NOTAS IMPORTANTES
+
+Todos los nombres de las tablas y campos siguen el diagrama de Miro EXACTAMENTE, sin renombrar nada del modelo.
+
+Toda relación pertenece al modelo de costos tradicional de construcción.
+
+El proyecto está organizado para escalar fácilmente a:
+
+App móvil
+
+API externa
+
+Panel administrativo ampliado
+
+El repositorio está limpio, sin archivos generados automáticamente en GitHub.
+
+🟩 Estado actual del proyecto
+Área	Estado
+Entorno local	✔ Completado
+Laravel base	✔ Completado
+Git + GitHub	✔ Conectado y funcionando
+Migraciones iniciales	✔ usuarios_tipo, usuario_estado, rol
+Seeders	✔ insert inicial de los 3 catálogos
+Base de datos	✔ sincronizada
+Backend	🟡 En progreso
+Frontend	⬜ Aún no iniciado
