@@ -20,13 +20,17 @@ class InsumoController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'insumoTipoId' => 'required|integer|exists:insumos_tipo,tipoId',
+            'insumoTipoId' => 'required|integer',
             'insumoNombre' => 'required|string',
-            'insumoUnAplicacionId' => 'required|integer|exists:unidades_aplicacion,unidadApId',
-            'insumoUnComercial' => 'nullable|string',
+            'insumoUnAplicacionId' => 'required|integer',
+            'insumoUnComercial' => 'nullable|integer',
             'insumoUnStandar' => 'nullable|numeric',
-            'insumoPrecioUnComercial' => 'required|numeric',
+            'insumoPrecioUnComercial' => 'nullable|numeric',
             'insumoFuente' => 'nullable|string',
+            'insumoDescripcion' => 'nullable|string',
+            'insumoRendimientoValor' => 'nullable|numeric',
+            'insumoRendimientoUnAplicacionId' => 'nullable|integer',
+            'insumoEstadoId' => 'required|integer',
         ]);
 
         $insumo = Insumo::create($data);

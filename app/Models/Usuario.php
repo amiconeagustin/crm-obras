@@ -42,7 +42,7 @@ class Usuario extends Authenticatable
 
     public function estado()
     {
-        return $this->belongsTo(UsuarioEstado::class, 'usuarioEstadoId', 'estadoId');
+        return $this->belongsTo(Estado::class, 'usuarioEstadoId', 'estadoId');
     }
 
     public function rol()

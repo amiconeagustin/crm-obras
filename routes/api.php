@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\InsumoController;
+use App\Http\Controllers\MetaUsuarioController;
+use App\Http\Controllers\MetaInsumoController;
+use App\Http\Controllers\RubroController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +43,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/insumos', [InsumoController::class, 'store']);
     Route::put('/insumo/{id}', [InsumoController::class, 'update']);
     Route::delete('/insumo/{id}', [InsumoController::class, 'destroy']);
+
+    // CRUD completo de rubros
+    Route::apiResource('rubros', RubroController::class);
+
+    // Rutas para listar datos duros no variables
+    Route::get('/usuario-tipos', [MetaUsuarioController::class, 'tipos']);
+    Route::get('/roles', [MetaUsuarioController::class, 'roles']);
+    Route::get('/estados', [MetaUsuarioController::class, 'estados']);
+    Route::get('/insumos-tipo', [MetaInsumoController::class, 'tipos']);
+    Route::get('/unidades-aplicacion', [MetaInsumoController::class, 'unidades']);
 });

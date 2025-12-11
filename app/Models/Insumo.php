@@ -17,7 +17,11 @@ class Insumo extends Model
         'insumoUnComercial',
         'insumoUnStandar',
         'insumoPrecioUnComercial',
-        'insumoFuente'
+        'insumoFuente',
+        'insumoDescripcion',
+        'insumoRendimientoValor',
+        'insumoRendimientoUnAplicacionId',
+        'insumoEstadoId',
     ];
 
     // Relación: un insumo pertenece a un tipo

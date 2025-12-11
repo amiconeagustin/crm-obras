@@ -53,7 +53,7 @@ class UsuarioController extends Controller
             'usuarioCel'             => 'nullable|string|max:50',
             'usuarioTipoId'          => 'required|integer|exists:usuarios_tipo,tipoId',
             'usuarioRolId'           => 'required|integer|exists:rol,rolId',
-            'usuarioEstadoId'        => 'required|integer|exists:usuario_estado,estadoId',
+            'usuarioEstadoId'        => 'required|integer|exists:estados,estadoId',
             'usuarioFechaNacimiento' => 'nullable|date',
         ]);
 
@@ -88,7 +88,7 @@ class UsuarioController extends Controller
             'usuarioCel'             => 'nullable|string|max:50',
             'usuarioTipoId'          => 'sometimes|required|integer|exists:usuarios_tipo,tipoId',
             'usuarioRolId'           => 'sometimes|required|integer|exists:rol,rolId',
-            'usuarioEstadoId'        => 'sometimes|required|integer|exists:usuario_estado,estadoId',
+            'usuarioEstadoId'        => 'sometimes|required|integer|exists:estados,estadoId',
             'usuarioFechaNacimiento' => 'nullable|date',
         ]);
 

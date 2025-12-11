@@ -26,7 +26,7 @@ return new class extends Migration
             // Relaciones
             $table->unsignedBigInteger('usuarioTipoId');
             $table->unsignedBigInteger('usuarioRolId');
-            $table->unsignedBigInteger('usuarioEstadoId');
+            $table->unsignedBigInteger('usuarioEstadoId')->default(1);
 
             // Fechas
             $table->date('usuarioFechaAlta')->nullable();
@@ -35,7 +35,6 @@ return new class extends Migration
             // FK
             $table->foreign('usuarioTipoId')->references('tipoId')->on('usuarios_tipo');
             $table->foreign('usuarioRolId')->references('rolId')->on('rol');
-            $table->foreign('usuarioEstadoId')->references('estadoId')->on('usuario_estado');
 
             $table->timestamps(); // usuarioTimestamp
             });
