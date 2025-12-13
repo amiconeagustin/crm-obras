@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('ESTADOS', function (Blueprint $table) {
+        Schema::create('estados', function (Blueprint $table) {
             $table->bigIncrements('estadoId');
             $table->string('estadoNombre', 50);
             $table->timestamp('estadoTimestamp')->useCurrent();
