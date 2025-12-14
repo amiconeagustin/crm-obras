@@ -12,7 +12,7 @@ class UnidadesAplicacionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('UNIDADES_APLICACION')->insert([
+        DB::table('unidades_aplicacion')->insert([
             // PESO
             [
                 'unidadApNombre' => 'Kilogramo',

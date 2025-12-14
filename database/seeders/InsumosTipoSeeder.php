@@ -12,7 +12,7 @@ class InsumosTipoSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('INSUMOS_TIPO')->insert([
+        DB::table('insumos_tipo')->insert([
             [
                 'tipoNombre' => 'Materiales',
             ],
