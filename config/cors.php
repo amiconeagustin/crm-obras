@@ -11,6 +11,7 @@ return [
     // Orígenes permitidos (acá usamos FRONTEND_URL del .env)
     'allowed_origins' => [
         env('FRONTEND_URL', 'http://localhost:5173'),
+        'https://app.amicone.com.ar',
     ],
 
     'allowed_origins_patterns' => [],
