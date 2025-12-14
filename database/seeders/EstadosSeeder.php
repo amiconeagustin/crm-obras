@@ -9,7 +9,7 @@ class EstadosSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('ESTADOS')->insert([
+        DB::table('estados')->insert([
             [
                 'estadoId' => 1,
                 'estadoNombre' => 'Activo',
